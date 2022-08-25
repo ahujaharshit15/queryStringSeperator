@@ -1,0 +1,33 @@
+<html>
+
+<head>
+    <title>queryString Testing Mechanism</title>
+    <script>
+        // whole query
+        console.log("The whole query string is: " + location.search);
+
+        //value seperate with "&"
+        const params = new URLSearchParams(document.location.search);
+        params.forEach((value, key) => {
+            console.log("Seperated with '&' : " + value, key)
+        })
+
+        //code for seperate search params
+        const search = location.search.substring(1)
+
+        const tags = search.split("/")
+
+        for (const i in tags) {
+            console.log("Seperated with '/' : " + tags[i])
+            alert("Seperated with '/' : " + tags[i])
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1> hello</h1>
+</body>
+
+
+</html>
