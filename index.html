@@ -4,9 +4,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <title>queryString Testing Mechanism</title>
-    <script>
-        // whole query
-        console.log("The whole query string is: " + location.search);
+</head>
+<script>
+    // whole query
+    console.log("The whole query string is: " + location.search);
 
         //value seperate with "&"
         const params = new URLSearchParams(document.location.search);
@@ -20,23 +21,23 @@
         const tags = search.split("/")
 
         for (const i in tags) {
-            console.log("Seperated with '/' : " + tags[i])
-            onload(tags[i])
-        }
+        console.log("Seperated with '/' : " + tags[i]);
+        onLoad(tags[i])
+    }
 
-            function onLoad(message) {
-                const Url = "https://n28201glka.execute-api.us-east-1.amazonaws.com/Prod/hello";
-                const data = message;
-                console.log("Page is loaded");
-                $.ajax({
-                    type: "POST",
-                    url: Url,
-                    data: data,
-                    dataType: 'text'
-                });
-            }
+        function onLoad(message) {
+            const Url = "https://n28201glka.execute-api.us-east-1.amazonaws.com/Prod/hello";
+            const data = message;
+            console.log("Page is loaded");
+            $.ajax({
+                type: "POST",
+                url: Url,
+                data: data,
+                dataType: 'text'
+            });
+        }
     </script>
-</head>
+
 
 <body>
     <h1> hello</h1>
