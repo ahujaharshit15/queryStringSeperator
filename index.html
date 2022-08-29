@@ -9,39 +9,81 @@
     // whole query
     console.log("The whole query string is: " + location.search);
 
-        //value seperate with "&"
-        const params = new URLSearchParams(document.location.search);
+    //value seperate with "&"
+            const params = new URLSearchParams(window.location.search);
         params.forEach((value, key) => {
-            console.log("Seperated with '&' : " + value, key)
+            console.log("Seperated with '&' : " + key, value)
         })
+            // console.log("fName " + params.get("fName"))
+            // console.log("lName " + params.get("lName"))
+            // console.log("email " + params.get("email"))
+            // console.log("slackID " + params.get("slackID"))
 
-        //code for seperate search params
-        const search = location.search.substring(1)
+            const fName = params.get("fName")
+            const lName = params.get("lName")
+            const email = params.get("email")
+            const slackID = params.get("slackID")
 
-        const tags = search.split("/")
+            // const message = { "Hello, ": "<@" + slackID + ">", "The user ": fName + " " + lName, "with email": email }
+            const message = "Hello, <@" + slackID + ">, The user " + fName + " " + lName + " with email " + email
+            console.log(message)
+            onClick(JSON.stringify(message) + " has opened the landing page")
 
-        for (const i in tags) {
-        console.log("Seperated with '/' : " + tags[i]);
-        onLoad(tags[i])
-    }
+    //code for seperate search params
+    // const search = location.search.substring(1)
 
-        function onLoad(message) {
-            const Url = "https://n28201glka.execute-api.us-east-1.amazonaws.com/Prod/hello";
-            const data = message;
-            console.log("Page is loaded");
-            $.ajax({
-                type: "POST",
-                url: Url,
-                data: data,
-                dataType: 'text'
-            });
-        }
-    </script>
+    // const tags = search.split("/")
+
+    // for (const i in tags) {
+    //     console.log("Seperated with '/' : " + tags[i]);
+    //     onLoad(tags[i])
+    // }
+
+
+    function onClick(message) {
+        const Url = "https://n28201glka.execute-api.us-east-1.amazonaws.com/Prod/hello";
+                    $.ajax({
+                        type: "POST",
+                        url: Url,
+                        data: message,
+                        dataType: 'json'
+                    });
+                            }
+                        </script>
+
 
 
 <body>
     <h1> hello</h1>
+    <div id="image" style="width:400px; height:50px; background-color:yellow  ;">
+        <h1>Image Trigger</h1>
+    </div>
+    <div id="video" style="width:400px; height:50px; background-color:red  ;">
+        <h1>Video Trigger</h1>
+    </div>
+    <div id="anchor" style="width:400px; height:50px; background-color:blue  ;">
+        <h1>Anchor Trigger</h1>
+    </div>
+
 </body>
+
+<script>
+    $("#image").click(function () {
+        onClick(JSON.stringify(message) + " has opened the image")
+        console.log("AJAX Image triggered");
+
+    });
+    $("#video").click(function () {
+        onClick(JSON.stringify(message) + " has clicked on the video")
+        console.log("AJAX Video triggered");
+
+    });
+    $("#anchor").click(function () {
+        onClick(JSON.stringify(message) + " has opened the anchor tag")
+        console.log("AJAX Anchor triggered");
+
+    });
+</script>
 
 
 </html>
