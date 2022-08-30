@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <title>queryString Testing Mechanism</title>
+</head>
+<script>
+    // whole query
+    console.log("The whole query string is: " + location.search);
+
+
+
+    // code for seperate search params
+    const search = location.search.substring(1)
+    // console.log("search==" + search)
+
+    const tags = search.split("/")
+
+    console.log(tags)
+    console.log("The first query value is : " + tags[0]);
+
+    //decryption part
+    const decoded = window.atob(tags[0])
+    console.log(decoded)
+
+    // for (const i in tags) {
+    //     console.log("Seperated with '/' : " + tags[i]);
+
+    //     //decryption part
+    //     const decoded = window.atob(tags[i])
+    //     console.log(decoded)
+    // }
+
+    //value seperate with "&"
+    const params = new URLSearchParams(decoded);
+
+    params.forEach((value, key) => {
+        console.log("Seperated with '&' : " + key, value)
+    })
+    // console.log("fName " + params.get("fName"))
+    // console.log("lName " + params.get("lName"))
+    // console.log("email " + params.get("email"))
+    // console.log("slackID " + params.get("slackID"))
+
+    const fName = params.get("fName")
+    const lName = params.get("lName")
+    const email = params.get("email")
+    const slackID = params.get("slackID")
+
+    // const message = { "Hello, ": "<@" + slackID + ">", "The user ": fName + " " + lName, "with email": email }
+    const message = "Hello, <@" + slackID + ">, The user " + fName + " " + lName + " with email " + email
+    console.log(message)
+    onClick(JSON.stringify(message) + " has opened the landing page")
+
+
+
+    function onClick(message) {
+        const Url = "https://n28201glka.execute-api.us-east-1.amazonaws.com/Prod/hello";
+        $.ajax({
+            type: "POST",
+            url: Url,
+            data: message,
+            dataType: 'json'
+        });
+    }
+</script>
+
+
+
+<body>
+    <h1> hello</h1>
+    <div id="image" style="width:400px; height:50px; background-color:yellow  ;">
+        <h1>Image Trigger</h1>
+    </div>
+    <div id="video" style="width:400px; height:50px; background-color:red  ;">
+        <h1>Video Trigger</h1>
+    </div>
+    <div id="anchor" style="width:400px; height:50px; background-color:blue  ;">
+        <h1>Anchor Trigger</h1>
+    </div>
+
+</body>
+
+<script>
+    $("#image").click(function () {
+        onClick(JSON.stringify(message) + " has opened the image")
+        console.log("AJAX Image triggered");
+
+    });
+    $("#video").click(function () {
+        onClick(JSON.stringify(message) + " has clicked on the video")
+        console.log("AJAX Video triggered");
+
+    });
+    $("#anchor").click(function () {
+        onClick(JSON.stringify(message) + " has opened the anchor tag")
+        console.log("AJAX Anchor triggered");
+
+    });
+</script>
+
+
+</html>
